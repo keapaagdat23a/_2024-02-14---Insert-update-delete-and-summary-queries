@@ -32,7 +32,7 @@ select count(*) from profile_copy;
 insert profile(firstname, lastname, email, date_of_birth, gender)
 values ('New', 'Person', 'new@person.com', '1990-04-30', 'Other');
 select * from profile where firstname like 'new';
-delete from profile where firstname like 'new';
+delete   from profile where firstname like 'new';
 
 
 
@@ -53,9 +53,41 @@ FROM sales
 GROUP BY customer_id
 HAVING SUM(total_sales) >= 1000;
 
+
+select post.profile_id, count(post_id) as "Posts made"
+from post
+group by profile_id
+having count(post_id) > 15;
+
 select post.profile_id, firstname, lastname, count(post_id) as "Posts made"
 from post
-join profile on post.profile_id = profile.profile_id
+         join profile on post.profile_id = profile.profile_id
+/* where profile.profile_id > 10 */
 group by post.profile_id
 having count(post_id) > 15
 order by 'Posts made';
+
+
+
+/*
+Live-demo i klassen på dagen
+*/
+
+create table copy as
+select * from profile;
+
+select * from profile where profile_id = 52;
+delete from profile where profile_id = 52;
+
+show databases;
+use social_medium;
+describe profile;
+show databases;
+
+/*
+If a column is defined with a default value, just use DEFAULT
+
+To identify column names and datatypes, just use:
+describe [table_name];
+
+*/
